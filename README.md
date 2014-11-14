@@ -89,6 +89,5 @@ If we have fist `var t=new Thenable();`, then:
 * `t.then(function() {}, function() {})` - Register resolution handlers.
 * `t.resolve(result)` - Resolve the thenable with `result`.
 * `t.reject(reason)` - Reject the thenable because of `reason`.
-* `Thenable.all(a,b,c,...).then()` - The static `all` function returns a Thenable that resolves when all its parameters resolve.
-* `Thenable.race(a,b,c,...).then()` - The static `race` function returns a Thenable that resolves when the first of its
-  parameters resolve.
+* `Thenable.all(a,b,c,...).then()` - Wait for all parameters to resolve.
+* `Thenable.race(a,b,c,...).then()` - Wait for any of the parameters to resolve.
