@@ -1,13 +1,13 @@
 tinp
 ====
 
-Tinp is not Promises.
+Tinp Is Not Promises.
 
 About
 -----
 
-What is tinp? It's not a promise as in [Promises/A+](https://github.com/promises-aplus) because all the complicated
-programming theory hurts my brain. It could stand for Thenables is not Promises, but that wouldn't be gramatically
+What is a tinp? A tinp is not a promise as in [Promises/A+](https://github.com/promises-aplus) because all the complicated
+programming theory hurts my brain. It could stand for Thenables Is Not Promises, but that would not be gramatically
 correct. So what is it? It is something that can be used for turning this code:
 
 ````
@@ -42,7 +42,7 @@ someTask.do().then(
 
 Nothing more, nothing less. And as such, I find it useful.
 
-It may or may not be passed into something else that accepts a thenable.
+It can in many cases be used together with other stuff that accepts a thenable.
 
 How to use
 ----------
