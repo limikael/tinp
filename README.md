@@ -80,9 +80,7 @@ What is the difference between Tinp and real Promises?
 Reference
 ---------
 
-For reference see: 
-
-But in short, if we have:
+In short, if we have:
 
 ````
     var t=new Thenable();
