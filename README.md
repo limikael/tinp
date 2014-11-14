@@ -72,6 +72,8 @@ Use it like so:
 What's the difference?
 ----------------------
 
+What is the difference between Tinp and real Promises?
+
 * The function `then` can only be called once.
 * The `then` function does not return anything useful.
 
