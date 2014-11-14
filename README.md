@@ -83,9 +83,9 @@ Reference
 In short, if we have:
 
 ````
-var Thenable=require("tinp");
+var Thenable = require("tinp");
 
-var t=new Thenable();
+var t = new Thenable();
 ````
 
 Then:
