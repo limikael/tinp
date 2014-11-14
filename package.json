@@ -1,0 +1,19 @@
+{
+  "name": "tinp",
+  "version": "0.0.1",
+  "description": "Tinp Is Not Promises",
+  "main": "src/Thenable.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/limikael/tinp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/limikael/tinp/issues"
+  },
+  "homepage": "https://github.com/limikael/tinp"
+}
