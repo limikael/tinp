@@ -93,5 +93,5 @@ Then:
 * `t.then(function() {}, function() {})` - Register resolution handlers.
 * `t.resolve(result)` - Resolve the Thenable with `result`.
 * `t.reject(reason)` - Reject the Thenable because of `reason`.
-* `Thenable.all(a,b,c,...).then()` - Wait for all parameters to resolve.
-* `Thenable.race(a,b,c,...).then()` - Wait for any of the parameters to resolve.
+* `Thenable.all(a,b,c,...).then()` - Wait for all to resolve. Reject if any rejects.
+* `Thenable.race(a,b,c,...).then()` - Wait for any to resolve. Reject if all rejects.
