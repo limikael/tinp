@@ -42,6 +42,8 @@ Into this:
 
 Nothing more, nothing less. And as such, I find it useful.
 
+It may or may not be passed into something else that accepts a thenable.
+
 How to use
 ----------
 
