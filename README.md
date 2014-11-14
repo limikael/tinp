@@ -73,3 +73,7 @@ What's the difference?
 * The function `then` can only be called once.
 * The `then` function does not return anything useful.
 
+Reference
+---------
+
+For reference see: 
