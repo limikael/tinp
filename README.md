@@ -82,9 +82,13 @@ Reference
 
 For reference see: 
 
-In short:
+But in short, if we have:
 
-If we have fist `var t=new Thenable();`, then:
+````
+    var t=new Thenable();
+````
+
+Then:
 
 * `t.then(function() {}, function() {})` - Register resolution handlers.
 * `t.resolve(result)` - Resolve the thenable with `result`.
