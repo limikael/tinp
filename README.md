@@ -11,33 +11,33 @@ programming theory hurts my brain. It could stand for Thenables is not Promises,
 correct. So what is it? It is something that can be used for turning this code:
 
 ````
-    var someTask=new SomeTask();
+var someTask=new SomeTask();
 
-    someTask.on("complete", function(result) {
-        // handle completion.
-    });
+someTask.on("complete", function(result) {
+    // handle completion.
+});
 
-    someTask.on("error", function(reason) {
-        // handle error.
-    });
+someTask.on("error", function(reason) {
+    // handle error.
+});
 
-    someTask.do();
+someTask.do();
 ````
 
 Into this:
 
 ````
-    var someTask=new SomeTask();
+var someTask=new SomeTask();
 
-    someTask.do().then(
-        function(result) {
-            // handle completion.
-        },
+someTask.do().then(
+    function(result) {
+        // handle completion.
+    },
 
-        function(reason) {
-            // handle error.
-        }
-    );
+    function(reason) {
+        // handle error.
+    }
+);
 ````
 
 Nothing more, nothing less. And as such, I find it useful.
@@ -50,23 +50,23 @@ How to use
 Use it like so:
 
 ````
-    var Thenable=require("tinp");
+var Thenable=require("tinp");
 
-    function MyOperation() {
-    }
+function MyOperation() {
+}
 
-    MyOperation.prototype.do=function() {
-        this.thenable=new Thenable();
+MyOperation.prototype.do=function() {
+    this.thenable=new Thenable();
 
-        // Initiate the operation, whatever it may be...
+    // Initiate the operation, whatever it may be...
 
-        return this.thenable;
-    }
+    return this.thenable;
+}
 
-    MyOperation.prototype.someListener=function() {
-        // Some time at a later stage we want to signal completion.
-        this.thenable.resolve(result);
-    }
+MyOperation.prototype.someListener=function() {
+    // Some time at a later stage we want to signal completion.
+    this.thenable.resolve(result);
+}
 ````
 
 What's the difference?
@@ -83,7 +83,9 @@ Reference
 In short, if we have:
 
 ````
-    var t=new Thenable();
+var Thenable=require("tinp");
+
+var t=new Thenable();
 ````
 
 Then:
