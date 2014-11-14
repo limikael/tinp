@@ -1,6 +1,11 @@
 tinp
 ====
 
+Tinp is not Promises.
+
+About
+-----
+
 What is tinp? It's not a promise as in [Promises/A+](https://github.com/promises-aplus) because all the complicated
 programming theory hurts my brain. It could stand for Thenables is not Promises, but that wouldn't be gramatically
 correct. So what is it? It is something that can be used for turning this code:
@@ -35,4 +40,30 @@ Into this:
     );
 ````
 
-Nothing more, nothing less. And as such, I find i useful.
+Nothing more, nothing less. And as such, I find it useful.
+
+How to use
+----------
+
+Use it like so:
+
+````
+    var Thenable=require("tinp");
+
+    function MyOperation() {
+    }
+
+    MyOperation.prototype.do=function() {
+        this.thenable=new Thenable();
+
+        // Initiate the operation, whatever it may be...
+
+        return this.thenable;
+    }
+
+    MyOperation.prototype.someListener=function() {
+        // Some time at a later stage we want to signal completion.
+        this.thenable.resolve(result);
+    }
+````
+
