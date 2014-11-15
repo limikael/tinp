@@ -6,7 +6,7 @@ Tinp Is Not Promises.
 * [About](#about)
 * [How to use](#how-to-use)
 * [Why?](#why)
-* [What's the difference](#whats-the-difference)
+* [What's the difference?](#whats-the-difference)
 * [Reference](#reference)
 
 About
