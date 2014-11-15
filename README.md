@@ -44,6 +44,45 @@ Nothing more, nothing less. And as such, I find it useful.
 
 It can in many cases be used together with other stuff that accepts a thenable.
 
+Why?
+----
+
+So why create such a thing? First, I want to say that I do understand that I deliberatly miss the point with Promises, as
+explained in [this](https://blog.domenic.me/youre-missing-the-point-of-promises/) article. Promises is a beautiful concept.
+But I find it beautiful kind of in the same way as LISP is beautiful. That is to say, it is beautiful, but that beauty
+does not neccesarily imply _usefulness_. I do like the syntax with the `then` however, and I found myself frequently use
+it for what is referred to in the article as _callback aggregation_. So I decided to create this little thing to only do that.
+
+Why not rely on a full implementation, even if I just use a subset? This is because, if I used for example
+[Q](https://github.com/kriskowal/q), it would look like this:
+
+````
+var deferred = Q.defer();
+FS.readFile("foo.txt", "utf-8", function (error, text) {
+    if (error) {
+        deferred.reject(new Error(error));
+    } else {
+        deferred.resolve(text);
+    }
+});
+return deferred.promise;
+````
+
+So, the thing that is a Q is not the actualy Promise, but rather it containse a promise. IMO, this is unnecesary syntax and
+complexity. With Tinp, it would look like:
+
+````
+var t = Thenable(); // or var t = new Thenable();, either of them works
+FS.readFile("foo.txt", "utf-8", function (error, text) {
+    if (error) {
+        t.reject(new Error(error));
+    } else {
+        t.resolve(text);
+    }
+});
+return t;
+````
+
 How to use
 ----------
 
@@ -72,7 +111,7 @@ MyOperation.prototype.someListener=function() {
 What's the difference?
 ----------------------
 
-What is the difference between Tinp and real Promises?
+What is the difference between thee pseudo Promises and real Promises?
 
 * The function `then` can only be called once.
 * The `then` function does not return anything useful.
@@ -93,5 +132,7 @@ Then:
 * `t.then(function() {}, function() {})` - Register resolution handlers.
 * `t.resolve(result)` - Resolve the Thenable with `result`.
 * `t.reject(reason)` - Reject the Thenable because of `reason`.
+* `Thenable.resolved(result)` - Create a resolved thenable.
+* `Thenable.rejected(reason)` - Create a rejected thenable.
 * `Thenable.all(a,b,c,...).then()` - Wait for all to resolve. Reject if any rejects.
 * `Thenable.race(a,b,c,...).then()` - Wait for any to resolve. Reject if all rejects.
