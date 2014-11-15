@@ -4,8 +4,8 @@ tinp
 Tinp Is Not Promises.
 
 * [About](#about)
-* [Why?](#why)
 * [How to use](#how-to-use)
+* [Why?](#why)
 * [What's the difference](#whats-the-difference)
 * [Reference](#reference)
 
@@ -50,6 +50,37 @@ Nothing more, nothing less. And as such, I find it useful.
 
 It can in many cases be used together with other stuff that accepts a thenable.
 
+How to use
+----------
+
+First, install it with:
+
+````
+npm install tinp
+````
+
+Use it like so:
+
+````
+var Thenable=require("tinp");
+
+function MyOperation() {
+}
+
+MyOperation.prototype.do=function() {
+    this.thenable=new Thenable();
+
+    // Initiate the operation, whatever it may be...
+
+    return this.thenable;
+}
+
+MyOperation.prototype.someListener=function() {
+    // Some time at a later stage we want to signal completion.
+    this.thenable.resolve(result);
+}
+````
+
 Why?
 ----
 
@@ -87,37 +118,6 @@ FS.readFile("foo.txt", "utf-8", function (error, text) {
     }
 });
 return t;
-````
-
-How to use
-----------
-
-First, install it with:
-
-````
-npm install tinp
-````
-
-Use it like so:
-
-````
-var Thenable=require("tinp");
-
-function MyOperation() {
-}
-
-MyOperation.prototype.do=function() {
-    this.thenable=new Thenable();
-
-    // Initiate the operation, whatever it may be...
-
-    return this.thenable;
-}
-
-MyOperation.prototype.someListener=function() {
-    // Some time at a later stage we want to signal completion.
-    this.thenable.resolve(result);
-}
 ````
 
 What's the difference?
