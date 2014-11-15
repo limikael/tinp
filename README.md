@@ -92,6 +92,12 @@ return t;
 How to use
 ----------
 
+First, install it with:
+
+````
+npm install tinp
+````
+
 Use it like so:
 
 ````
