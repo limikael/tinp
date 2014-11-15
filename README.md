@@ -3,6 +3,12 @@ tinp
 
 Tinp Is Not Promises.
 
+* [About](#about)
+* [Why?](#why)
+* [How to use](#how-to-use)
+* [What's the difference](#whats-the-difference)
+* [Reference](#reference)
+
 About
 -----
 
