@@ -3,6 +3,9 @@
  * @class Thenable
  */
 function Thenable() {
+	if (!(this instanceof Thenable))
+		return new Thenable();
+
 	this.decided = false;
 	this.handlersUsed = false;
 }
@@ -29,7 +32,7 @@ Thenable.prototype.resolve = function(result) {
 		throw new Error("Already decided.");
 
 	this.decided = true;
-	process.nextTick(this.callHandler.bind(this, this.resolutionHandler, result));
+	process.nextTick(this.callHandler.bind(this, true, result));
 }
 
 /**
@@ -41,7 +44,7 @@ Thenable.prototype.reject = function(reason) {
 		throw new Error("Already decided.");
 
 	this.decided = true;
-	process.nextTick(this.callHandler.bind(this, this.rejectionHandler, reason));
+	process.nextTick(this.callHandler.bind(this, false, reason));
 }
 
 /**
@@ -49,8 +52,18 @@ Thenable.prototype.reject = function(reason) {
  * @method callHandler
  * @private
  */
-Thenable.prototype.callHandler = function(handler, parameter) {
+Thenable.prototype.callHandler = function(resolved, parameter) {
 	this.handlersUsed = true;
+
+	var handler;
+
+	if (resolved)
+		handler = this.resolutionHandler;
+
+	else
+		handler = this.rejectionHandler;
+
+	//console.log("in callHandler, handler=" + handler);
 
 	if (handler) {
 		try {
@@ -88,13 +101,16 @@ Thenable.rejected = function(parameter) {
  * @method all
  */
 Thenable.all = function( /* ... */ ) {
-	var thenables = [].concat(arguments);
-	var count = thenables.length;
 	var thenable = new Thenable();
 	var i;
+	var thenables = [];
 	var decided = false;
+	var resolvedCount = 0;
 
-	function resolved() {
+	for (i = 0; i < arguments.length; i++)
+		thenables = thenables.concat(arguments[i]);
+
+	function onResolved() {
 		resolvedCount++;
 
 		if (!decided && resolvedCount >= thenables.length) {
@@ -103,14 +119,77 @@ Thenable.all = function( /* ... */ ) {
 		}
 	}
 
-	function rejected(e) {
-		decided = true;
-		thenable.reject(e);
+	function onRejected(e) {
+		if (!decided) {
+			decided = true;
+			thenable.reject(e);
+		}
 	}
 
 	for (i = 0; i < thenables.length; i++) {
-		thenables[i].then(resolved, rejected);
+		thenables[i].then(onResolved, onRejected);
 	}
 
 	return thenable;
 }
+
+/**
+ * Wait for any to resolve or all to reject.
+ * @method all
+ */
+Thenable.race = function( /* ... */ ) {
+	var thenable = new Thenable();
+	var i;
+	var thenables = [];
+	var decided = false;
+	var resolvedCount = 0;
+
+	for (i = 0; i < arguments.length; i++)
+		thenables = thenables.concat(arguments[i]);
+
+	function onRejected() {
+		resolvedCount++;
+
+		if (!decided && resolvedCount >= thenables.length) {
+			decided = true;
+			thenable.reject();
+		}
+	}
+
+	function onResolved(r) {
+		if (!decided) {
+			decided = true;
+			thenable.resolve(r);
+		}
+	}
+
+	for (i = 0; i < thenables.length; i++) {
+		thenables[i].then(onResolved, onRejected);
+	}
+
+	return thenable;
+}
+
+/**
+ * Create a resolved Thenable.
+ * @method resolved
+ */
+Thenable.resolved = function(result) {
+	var t = new Thenable;
+	t.resolve(result);
+
+	return t;
+}
+
+/**
+ * Create a rejected Thenable.
+ * @method rejected
+ */
+Thenable.rejected = function(reason) {
+	var t = new Thenable;
+	t.reject(reason);
+
+	return t;
+}
+
+module.exports = Thenable;
