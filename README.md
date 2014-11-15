@@ -68,11 +68,11 @@ FS.readFile("foo.txt", "utf-8", function (error, text) {
 return deferred.promise;
 ````
 
-So, the thing that is a Q is not the actualy Promise, but rather it containse a promise. IMO, this is unnecesary syntax and
+So, the thing that is a Q is not the actualy a Promise, but rather it containse a promise. IMO, this is unnecesary syntax and
 complexity. With Tinp, it would look like:
 
 ````
-var t = Thenable(); // or var t = new Thenable();, either of them works
+var t = Thenable(); // or var t = new Thenable();, either of them works.
 FS.readFile("foo.txt", "utf-8", function (error, text) {
     if (error) {
         t.reject(new Error(error));
