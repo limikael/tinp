@@ -110,6 +110,9 @@ Thenable.all = function( /* ... */ ) {
 	for (i = 0; i < arguments.length; i++)
 		thenables = thenables.concat(arguments[i]);
 
+	if (!thenables.length)
+		return Thenable.resolved();
+
 	function onResolved() {
 		resolvedCount++;
 

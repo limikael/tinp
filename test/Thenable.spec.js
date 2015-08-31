@@ -106,6 +106,17 @@ describe("Thenable", function() {
 		}, 0);
 	});
 
+	it("all resolves on an empty array", function(done) {
+		var spy = jasmine.createSpy();
+
+		Thenable.all([]).then(spy);
+
+		setTimeout(function() {
+			expect(spy).toHaveBeenCalled();
+			done();
+		}, 10);
+	});
+
 	it("all rejects if one rejects", function(done) {
 		var spy = jasmine.createSpy("spy one");
 
@@ -169,7 +180,7 @@ describe("Thenable", function() {
 	it("can create a rejected thenable", function(done) {
 		var spy = jasmine.createSpy();
 
-		Thenable.rejected("hello").then(null,spy);
+		Thenable.rejected("hello").then(null, spy);
 
 		expect(spy).not.toHaveBeenCalled();
 
