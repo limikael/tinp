@@ -130,7 +130,11 @@ Thenable.all = function( /* ... */ ) {
 	}
 
 	for (i = 0; i < thenables.length; i++) {
-		thenables[i].then(onResolved, onRejected);
+		if (!thenables[i])
+			onResolved();
+
+		else
+			thenables[i].then(onResolved, onRejected);
 	}
 
 	return thenable;
