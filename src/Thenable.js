@@ -19,6 +19,20 @@ Thenable.prototype.then = function(resolutionHandler, rejectionHandler) {
 		throw new Error("Handlers already registered or called.");
 
 	this.handlersUsed = true;
+
+	if ((typeof resolutionHandler) == "object" &&
+		resolutionHandler && !rejectionHandler &&
+		resolutionHandler.then) {
+		var chained = resolutionHandler;
+
+		this.resolutionHandler = chained.resolve.bind(chained);
+		this.rejectionHandler = chained.reject.bind(chained);
+		return;
+	}
+
+	/*	if (typeof resolutionHandler == "object" &&
+		}*/
+
 	this.resolutionHandler = resolutionHandler;
 	this.rejectionHandler = rejectionHandler;
 }

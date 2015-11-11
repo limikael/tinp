@@ -193,9 +193,9 @@ describe("Thenable", function() {
 	it("all treats undefined as resolved thenables", function(done) {
 		var spy = jasmine.createSpy();
 
-		var t=new Thenable();
+		var t = new Thenable();
 
-		Thenable.all(undefined,undefined,t).then(spy);
+		Thenable.all(undefined, undefined, t).then(spy);
 
 		setTimeout(function() {
 			expect(spy).not.toHaveBeenCalled();
@@ -205,6 +205,22 @@ describe("Thenable", function() {
 				expect(spy).toHaveBeenCalled();
 				done();
 			}, 0);
+		}, 0);
+	});
+
+	it("can chain another thenable", function(done) {
+		var spy = jasmine.createSpy();
+
+		var t = new Thenable();
+		var u = new Thenable();
+
+		u.then(spy);
+		t.then(u);
+
+		t.resolve();
+		setTimeout(function() {
+			expect(spy).toHaveBeenCalled();
+			done();
 		}, 0);
 	});
 });
